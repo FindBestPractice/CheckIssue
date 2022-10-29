@@ -19,8 +19,12 @@ const App = () => {
           Authorization: `Basic ${TOKEN}`,
         },
       })
-      .then((res) => setIssueData(res.data));
+      .then((res) => {
+        const data = res.data.filter((issue) => issue.state === 'open');
+        setIssueData(data);
+      });
   };
+
   useEffect(() => {
     getIssueList();
   }, []);

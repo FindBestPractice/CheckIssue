@@ -5,7 +5,7 @@ import { IssueContext } from '../App';
 import { useNavigate } from 'react-router-dom';
 
 const List = () => {
-  const issueList = useContext(IssueContext);
+  const issueList = useContext(IssueContext).sort((a, b) => b.comments - a.comments);
   const navigate = useNavigate();
   const moveIssueDetail = (issueNum) => {
     navigate(`/detail/${issueNum}`);
