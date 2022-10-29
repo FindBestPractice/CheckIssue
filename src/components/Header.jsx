@@ -17,6 +17,7 @@ const Header = () => {
 export default Header;
 
 const Title = styled.header`
+  text-align: center;
   h3 {
     font-size: 25px;
   }
