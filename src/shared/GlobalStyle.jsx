@@ -67,6 +67,14 @@ a {
 	text-decoration: none;
   color: inherit;
 }
+
+#root {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin: auto 0;
+}
 `;
 
 export default GlobalStyle;
