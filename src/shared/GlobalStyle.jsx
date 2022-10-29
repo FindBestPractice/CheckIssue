@@ -73,7 +73,9 @@ a {
   justify-content: center;
   align-items: center;
 
-  margin: auto 0;
+  width: 80%;
+
+  margin: 0 auto;
 }
 `;
 
