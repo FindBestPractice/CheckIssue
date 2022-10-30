@@ -55,13 +55,7 @@ table {
 	box-sizing: border-box;
 }
 body {
-	background: #FAFAFA;
-}
-body * {
-	font-family: 'Lobster', cursive;
-	font-family: 'Noto Sans', sans-serif;
 	font-family: 'Noto Sans KR', sans-serif;
-	background-color: transparent;
 }
 a {
 	text-decoration: none;
