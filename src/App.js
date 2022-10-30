@@ -8,9 +8,10 @@ export const LodingContext = createContext('defaultValue');
 
 const App = () => {
   const [issueData, setIssueData] = useState([]);
-  const [isLoding, setIsLoding] = useState(true);
+  const [isLoding, setIsLoding] = useState(false);
 
   useEffect(() => {
+    setIsLoding(true);
     getIssueList().then((result) => {
       setIssueData(result);
       setIsLoding(false);
