@@ -11,9 +11,10 @@ export const getIssueList = async () => {
       headers: {
         Authorization: `Basic ${TOKEN}`,
       },
+      params: { per_page: 20, sort: 'comments' },
     })
     .then((res) => {
-      return res.data.filter((issue) => issue.state === 'open');
+      return res.data;
     });
 };
 
