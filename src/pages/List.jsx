@@ -1,20 +1,29 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import Header from '../components/Header';
-import { IssueContext } from '../App';
+import { IssueContext, LodingContext } from '../App';
 import { useNavigate } from 'react-router-dom';
+import Loding from '../components/Loding';
 
 const List = () => {
+  const { isLoding } = useContext(LodingContext);
   const issueList = useContext(IssueContext).sort((a, b) => b.comments - a.comments);
   const navigate = useNavigate();
   const moveIssueDetail = (issueNum) => {
     navigate(`/detail/${issueNum}`);
   };
 
+  // TODO 5번째 행에 광고 이미지 출력
+  // TODO 무한스크롤
+  // TODO 반응형
+  // TODO mui 등 스타일 !!
   return (
     <div className="List">
       <Header />
-      {issueList &&
+      {isLoding ? (
+        <Loding />
+      ) : (
+        issueList &&
         issueList.map((issue) => {
           return (
             <IssueListWrapper key={issue.id} onClick={() => moveIssueDetail(issue.number)}>
@@ -31,7 +40,8 @@ const List = () => {
               <Comment className="comment">코멘트: {issue.comments}</Comment>
             </IssueListWrapper>
           );
-        })}
+        })
+      )}
     </div>
   );
 };

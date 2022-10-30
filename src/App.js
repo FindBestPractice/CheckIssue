@@ -4,6 +4,7 @@ import Routers from './Router';
 import axios from 'axios';
 
 export const IssueContext = createContext('defaultValue');
+export const LodingContext = createContext('defaultValue');
 
 const App = () => {
   const TOKEN = process.env.REACT_APP_ACCESS_TOKEN;
@@ -11,6 +12,7 @@ const App = () => {
   const REPO = process.env.REACT_APP_REPO;
 
   const [issueData, setIssueData] = useState([]);
+  const [isLoding, setIsLoding] = useState(true);
 
   const getIssueList = async () => {
     await axios
@@ -22,6 +24,7 @@ const App = () => {
       .then((res) => {
         const data = res.data.filter((issue) => issue.state === 'open');
         setIssueData(data);
+        setIsLoding(false);
       });
   };
 
@@ -30,10 +33,12 @@ const App = () => {
   }, []);
 
   return (
-    <IssueContext.Provider value={issueData}>
-      <GlobalStyle />
-      <Routers />
-    </IssueContext.Provider>
+    <LodingContext.Provider value={{ isLoding }}>
+      <IssueContext.Provider value={issueData}>
+        <GlobalStyle />
+        <Routers />
+      </IssueContext.Provider>
+    </LodingContext.Provider>
   );
 };
 
