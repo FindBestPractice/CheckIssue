@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import styled from 'styled-components';
-import axios from 'axios';
+import { getIssueDetail } from '../shared/axios';
 import Header from '../components/Header';
 import Loding from '../components/Loding';
 
@@ -11,26 +11,14 @@ const Detail = () => {
   const { issue } = useParams();
   const [issueInfo, setIssueInfo] = useState({});
   const [isLoding, setIsLoding] = useState(true);
-  const TOKEN = process.env.REACT_APP_ACCESS_TOKEN;
-  const OWNER = process.env.REACT_APP_OWNER;
-  const REPO = process.env.REACT_APP_REPO;
 
   // FIXME 마크다운 화면 수정필요
-  const getIssueDetail = async (issueNumber) => {
-    await axios
-      .get(`https://api.github.com/repos/${OWNER}/${REPO}/issues/${issueNumber}`, {
-        headers: {
-          Authorization: `Basic ${TOKEN}`,
-        },
-      })
-      .then((res) => {
-        setIssueInfo(res.data);
-        setIsLoding(false);
-      });
-  };
-
+  // TODO 데이터 받는 부분 useContext로 변경해보기
   useEffect(() => {
-    getIssueDetail(issue);
+    getIssueDetail(issue).then((result) => {
+      setIssueInfo(result);
+      setIsLoding(false);
+    });
   }, []);
 
   return (
