@@ -18,7 +18,7 @@ const App = () => {
   }, []);
 
   return (
-    <LodingContext.Provider value={{ isLoding }}>
+    <LodingContext.Provider value={isLoding}>
       <IssueContext.Provider value={issueData}>
         <GlobalStyle />
         <Routers />

@@ -1,12 +1,12 @@
-import React, { useContext, useState } from 'react';
-import styled from 'styled-components';
-import Header from '../components/Header';
-import { IssueContext, LodingContext } from '../App';
+import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+import { IssueContext, LodingContext } from '../App';
+import Header from '../components/Header';
 import Loding from '../components/Loding';
 
 const List = () => {
-  const { isLoding } = useContext(LodingContext);
+  const isLoding = useContext(LodingContext);
   const issueList = useContext(IssueContext).sort((a, b) => b.comments - a.comments);
   const navigate = useNavigate();
   const moveIssueDetail = (issueNum) => {
