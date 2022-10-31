@@ -11,7 +11,20 @@ export const getIssueList = async () => {
       headers: {
         Authorization: `Basic ${TOKEN}`,
       },
-      params: { per_page: 20, sort: 'comments' },
+      params: { per_page: 10, sort: 'comments' },
+    })
+    .then((res) => {
+      return res.data;
+    });
+};
+
+export const getMoreIssueList = async (page) => {
+  return await axios
+    .get(`${URL}/${OWNER}/${REPO}/issues`, {
+      headers: {
+        Authorization: `Basic ${TOKEN}`,
+      },
+      params: { per_page: 10, sort: 'comments', page },
     })
     .then((res) => {
       return res.data;

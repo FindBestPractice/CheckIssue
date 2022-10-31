@@ -13,7 +13,9 @@ const App = () => {
   useEffect(() => {
     setIsLoding(true);
     getIssueList().then((result) => {
-      setIssueData(result);
+      const issueList = [...result];
+      issueList.splice(4, 0, 'add');
+      setIssueData(issueList);
       setIsLoding(false);
     });
   }, []);

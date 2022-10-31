@@ -1,25 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
 import styled from 'styled-components';
-import { getIssueDetail } from '../shared/axios';
+import MDEditor from '@uiw/react-md-editor';
+import { IssueContext } from '../App';
 import Header from '../components/Header';
 import Loding from '../components/Loding';
 
 const Detail = () => {
   const { issue } = useParams();
-  const [issueInfo, setIssueInfo] = useState({});
+  const issueInfo = useContext(IssueContext).filter((list) => parseInt(issue) === parseInt(list.number))[0];
   const [isLoding, setIsLoding] = useState(true);
 
-  // FIXME 마크다운 화면 수정필요
-  // TODO 데이터 받는 부분 useContext로 변경해보기
   useEffect(() => {
-    getIssueDetail(issue).then((result) => {
-      setIssueInfo(result);
-      setIsLoding(false);
-    });
-  }, []);
+    setIsLoding(false);
+  }, [issueInfo]);
 
   return (
     <div className="Detail">
@@ -43,7 +37,7 @@ const Detail = () => {
               </TitleWrapper>
               <div>코멘트: {issueInfo.comments}</div>
             </InfoHeader>
-            <ReactMarkdown remarkPlugins={[remarkGfm]}>{issueInfo.body}</ReactMarkdown>
+            <MDEditor.Markdown source={issueInfo.body} style={{ padding: '20px', backgroundColor: '#FAFAFA' }} />
           </>
         )
       )}
@@ -79,5 +73,3 @@ const TitleWrapper = styled.div`
     margin-bottom: 10px;
   }
 `;
-
-const InfoBody = styled.div``;
